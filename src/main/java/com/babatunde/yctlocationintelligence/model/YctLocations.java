@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.babatunde.yctlocationintelligence.utilities.ConverterUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,12 +34,13 @@ public class YctLocations {
 
 	private String description;
 
+	@JsonIgnore
 	private Date dateAdded = new Date();
 
+	@JsonIgnore
 	private String addedBy;
 	
-	@OneToMany
-	@JoinColumn(name = "id")
+	@ManyToMany
 	private List<LocationCategory> categories;
 
 	public YctLocations(double longitude, double latitude, String name, String description, String addedBy) {

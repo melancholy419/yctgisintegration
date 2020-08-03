@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import com.babatunde.yctlocationintelligence.utilities.ConverterUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,13 @@ public class LocationCategory {
 	private long id;
 	private String categoryName;
 	private String description;
+	@JsonIgnore
 	private String createdBy;
+	@JsonIgnore
 	private Date createdDate = new Date();
+	@JsonIgnore
 	private String modifyBy;
+	@JsonIgnore
 	private Date lastModifiedDate=new Date();
 	
 	public LocationCategory(String categoryName,String description) {

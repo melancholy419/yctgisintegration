@@ -44,6 +44,11 @@ public class LocationController {
 	public ApiResponse deleteById(@RequestParam long id) {
 		return locationService.deleteLocation(id);
 	}
+	
+	@GetMapping("/by-category")
+	public ApiResponse findAllByCategory(@RequestParam long categoryId) {
+		return locationService.findBycategory(categoryId);
+	}
    
 
 }

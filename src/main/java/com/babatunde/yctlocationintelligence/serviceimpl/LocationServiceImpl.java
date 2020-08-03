@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.babatunde.yctlocationintelligence.constants.ResponseConstants;
+import com.babatunde.yctlocationintelligence.model.LocationCategory;
 import com.babatunde.yctlocationintelligence.model.YctLocations;
 import com.babatunde.yctlocationintelligence.repository.LocationRepository;
 import com.babatunde.yctlocationintelligence.response.ApiResponse;
@@ -27,7 +28,7 @@ public class LocationServiceImpl implements LocationService {
 		ApiResponse response = new ApiResponse();
 		try {
 			List<YctLocations> locations = locationRepo.findAll();
-			if (locations.isEmpty()) {
+			if (!locations.isEmpty()) {
 				response.setResponse(ResponseConstants.SUCCESS);
 				response.setData(locations);
 				log.info("Successfully found locations");
@@ -111,6 +112,28 @@ public class LocationServiceImpl implements LocationService {
 			}
 		} catch (Exception ex) {
 			log.error("Error occured while trying to find location with id: {} because: {}",locationId, ex.getMessage(), ex);
+		}
+		return response;
+	}
+
+	@Override
+	public ApiResponse findBycategory(long categoryId) {
+		ApiResponse response = new ApiResponse();
+		log.info("Trying to find all locations by categoryid: {}",categoryId);
+		try {
+			LocationCategory category = new LocationCategory();
+			category.setId(categoryId);
+			List<YctLocations> locations = locationRepo.findAllByCategories(category);
+			if(!locations.isEmpty()) {
+				log.info("Successfully found {} locations result with categoryId: {}",locations.size(),categoryId);
+				response.setResponse(ResponseConstants.SUCCESS);
+				response.setData(locations);
+			}else {
+				log.info("Empty resultset was returned while trying to get all locations by category Id: {}",categoryId);
+				response.setResponse(ResponseConstants.EMPTY_RESULT);
+			}
+		}catch(Exception ex) {
+			log.error("Exception occured while trying to get all points by categoryId: {} because: {}",categoryId,ex.getMessage(),ex);
 		}
 		return response;
 	}

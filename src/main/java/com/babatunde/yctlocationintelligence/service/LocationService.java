@@ -15,6 +15,8 @@ public interface LocationService {
 	
 	public ApiResponse findLocation(long locationId);
 	
+	public ApiResponse findBycategory(long categoryId);
+	
 	
 	
 
