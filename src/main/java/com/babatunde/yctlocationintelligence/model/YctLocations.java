@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 public class YctLocations {
 
 	@Id
-	@GeneratedValue(generator = "loc_seq",strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(allocationSize = 1,initialValue = 1,name = "loc_seq")
+	@GeneratedValue(generator = "loc_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(allocationSize = 1, initialValue = 1, name = "loc_seq")
 	private long id;
 
 	private double longitude;
@@ -33,26 +33,33 @@ public class YctLocations {
 	private String name;
 
 	private String description;
+	
+	private String abbreviation;
 
 	@JsonIgnore
 	private Date dateAdded = new Date();
 
 	@JsonIgnore
 	private String addedBy;
-	
+
 	@ManyToMany
 	private List<LocationCategory> categories;
 
-	public YctLocations(double longitude, double latitude, String name, String description, String addedBy) {
+	private boolean isApproved=true;
+
+	private String approvedBy;
+
+	public YctLocations(double longitude, double latitude, String name, String description,String abbreviation ) {
 
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.name = name;
 		this.description = description;
-		this.addedBy = addedBy;
+		this.addedBy = "SYSTEM";
+		this.abbreviation=abbreviation;
 		this.dateAdded = new Date();
 	}
-	
+
 	@Override
 	public String toString() {
 		return ConverterUtils.toJson(this);

@@ -20,6 +20,11 @@ public class LocationCategoryController {
 	@Autowired
 	private LocationCategoryService categoryService;
 	
+	@GetMapping("/by-name")
+	public ApiResponse fetchByCategoryName(@RequestParam String query) {
+		return categoryService.queryLocations(query);
+	}
+	
 	@GetMapping
 	public ApiResponse getAllCategories() {
 		return categoryService.getAllLocationCategory();

@@ -15,4 +15,6 @@ public interface LocationCategoryService {
 	
 	public ApiResponse deleteCategoryById(long categoryId);
 
+	public ApiResponse queryLocations(String query);
+
 }

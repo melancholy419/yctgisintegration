@@ -81,7 +81,7 @@ public class LocationCategoryServiceImpl implements LocationCategoryService {
 		ApiResponse response = new ApiResponse();
 		try {
 			Optional<LocationCategory> category = categoryRepo.findById(categoryId);
-			if (category.isEmpty()) {
+			if (!category.isEmpty()) {
 				log.info("Successfully found location category with id: {} ", categoryId);
 				response.setResponse(ResponseConstants.SUCCESS);
 				response.setData(category.get());
@@ -111,6 +111,18 @@ public class LocationCategoryServiceImpl implements LocationCategoryService {
 			}
 		} catch (Exception ex) {
 			log.error("Error occured while trying to delete location category with id: {} because: {}",categoryId,ex.getMessage(), ex);
+		}
+		return response;
+	}
+	
+	@Override
+	public ApiResponse queryLocations(String query) {
+		log.info("Trying to search locations by query: {}",query);
+		ApiResponse response = new ApiResponse();
+		try {
+			
+		}catch(Exception ex) {
+			
 		}
 		return response;
 	}
